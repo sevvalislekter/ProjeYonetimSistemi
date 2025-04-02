@@ -1,0 +1,151 @@
+/* Dashboard ana container */
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Sidebar (sol menü) */
+.sidebar {
+    background-color: #333;
+    color: white;
+    padding: 30px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+.sidebar ul li:hover {
+    background-color: #575757;
+}
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 100;
+}
+
+.pro {
+    color: black;
+}
+
+/* Ana içerik kısmı */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.box-container {
+    display: flex;
+    /* Kutucukları yan yana hizalamak için flexbox kullanıyoruz */
+    flex-wrap: wrap;
+    /* Kutucuklar sığmadığında alt satıra geçmelerini sağlar */
+    justify-content: flex-start;
+    /* Kutucukları sol tarafa yaslar */
+    /* justify-content: space-around; kutucuklar arasında eşit boşluk bırakır */
+    /* justify-content: space-between; kutucuklar arasında olabildiğince boşluk bırakır */
+}
+
+.box1 {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    background-color: burlywood;
+    /* Kutucukların genişliğini ayarlıyoruz */
+    min-width: 150px;
+    /* Kutucukların minimum genişliğini ayarlıyoruz */
+    box-sizing: border-box;
+    /* padding ve border'ın genişliğe dahil edilmesini sağlar */
+    /* display: flex; kutucuk içindeki içeriği hizalamak için kullanabilirsiniz */
+    /* align-items: center; kutucuk içindeki içeriği dikeyde ortalar */
+    /* text-align: center; kutucuk içindeki içeriği yatayda ortalar */
+}
+
+.box2 {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    /* Kutucukların genişliğini ayarlıyoruz */
+    min-width: 150px;
+    box-sizing: border-box;
+    background-color: cadetblue;
+
+}
+
+.box3 {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    /* Kutucukların genişliğini ayarlıyoruz */
+    min-width: 150px;
+    box-sizing: border-box;
+    background-color: cadetblue;
+
+}
+
+.box4 {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    /* Kutucukların genişliğini ayarlıyoruz */
+    min-width: 150px;
+    box-sizing: border-box;
+    background-color: cornflowerblue;
+}
+
+.list {
+    margin-top: 30px;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Hücre sınırlarını birleştirir */
+}
+
+th {
+    padding: 10px;
+    /* Başlık hücrelerine iç boşluk ekler */
+    text-align: left;
+    /* Metin hizalamayı sola yapar */
+    border: 1px solid #ddd;
+    /* Başlık hücrelerine sınır ekler */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+th+th {
+    padding-left: 20px;
+    /* Başlıklar arasına daha fazla boşluk ekler */
+}
+
+td {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    font-family: sans-serif;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
