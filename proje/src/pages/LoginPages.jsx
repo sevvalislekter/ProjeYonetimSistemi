@@ -15,7 +15,7 @@ const LoginPages = () => {
 
     // API'ye login isteği gönderiyoruz
     try {
-      const response = await axios.post('http://localhost/login.php', {
+      const response = await axios.post('http://localhost/proje/login.php', {
         username: username,
         email: email,
         password: password,

@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate'i içe aktar
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../css/AddPr.css';
 
 function AddProje() {
-    const navigate = useNavigate(); // useNavigate hook'unu kullan
+    const navigate = useNavigate();
+    const [projectName, setProjectName] = useState('');
+    const [projectDescription, setProjectDescription] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
-    const handleAddProject = (event) => {
-        event.preventDefault(); // Formun varsayılan submit işlemini engeller
+    const handleAddProject = async (event) => {
+        event.preventDefault();
 
-        // Input alanlarını kontrol et
-        const projectName = event.target[0].value;
-        const projectDescription = event.target[1].value;
-        const startDate = event.target[2].value;
-        const endDate = event.target[3].value;
-
-        // Eğer herhangi bir alan boşsa uyarı ver
         if (!projectName || !projectDescription || !startDate || !endDate) {
             alert("Lütfen tüm alanları doldurun.");
             return;
         }
 
-        // Tüm alanlar doluysa başarı mesajı
-        alert("Proje başarıyla eklendi!");
+        try {
+            const response = await axios.post('http://localhost/proje/projeadd.php', {
+                pname: projectName,
+                pdesc: projectDescription,
+                bdate: startDate,
+                fdate: endDate,
+            });
+
+            if (response.data.success) {
+                alert("Proje başarıyla eklendi!");
+                navigate('/projects'); // Projeler sayfasına yönlendir
+            } else {
+                alert("Proje eklenirken bir hata oluştu: " + response.data.message);
+            }
+        } catch (error) {
+            alert("Bir hata oluştu, lütfen tekrar deneyin.");
+        }
     };
 
     return (
@@ -46,17 +59,17 @@ function AddProje() {
                 <form className='form' onSubmit={handleAddProject}>
                     <h2>Proje ekle</h2>
                     <div style={{ width: '900px' }}>
-                        <input style={{ height: '70px' }} type="text" placeholder='Proje adı' required />
+                        <input style={{ height: '70px' }} type="text" placeholder='Proje adı' value={projectName} onChange={(e) => setProjectName(e.target.value)} required />
                     </div>
                     <div style={{ width: '900px' }}>
-                        <input type="text" placeholder='Proje açıklaması' style={{ height: '70px' }} required />
+                        <input type="text" placeholder='Proje açıklaması' style={{ height: '70px' }} value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} required />
                     </div>
                     <div className="btarih">Başlangıç Tarihi
-                        <input type="date" required />
+                        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
                     </div>
                     <div>
                         Bitiş Tarihi
-                        <input type="date" required />
+                        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
                     </div>
                     <button type="submit">Ekle</button>
                 </form>

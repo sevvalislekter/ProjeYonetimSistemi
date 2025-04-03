@@ -1,16 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 function ForgotPass() {
     const [username, setUsername] = useState('');
     const [pass, setPass] = useState('');
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            // Konsola gönderilen veriyi yazdıralım
+            console.log('Gönderilen Veriler:', {
+                username,
+                email,
+                new_password: pass
+            });
+
+            const response = await axios.post('http://localhost/proje/forgotpass.php', {
+                username,
+                email,
+                new_password: pass
+            });
+
+            console.log('Backend Cevabı:', response.data); // Backend'den gelen cevabı kontrol edelim
+
+            alert(response.data.message);
+            if (response.data.success) {
+                alert("şifre yenilendi"); // Başarılı şifre yenileme sonrası giriş sayfasına yönlendir
+            }
+        } catch (error) {
+            console.error('Şifre yenileme başarısız:', error);
+            alert('Şifre yenileme başarısız: ' + error.message);
+        }
+    };
+
     return (
         <div>
             <div className='login-container'>
                 <h2>Şifre Yenileme</h2>
-                <form className='form' >
+                <form className='form' onSubmit={handleSubmit}>
                     <div>
                         <label>Kullanıcı Adı: </label>
                         <input
@@ -21,11 +53,11 @@ function ForgotPass() {
                         />
                     </div>
                     <div>
-                        <label>E-mail: </label> {/* E-posta alanı eklendi */}
+                        <label>E-mail: </label>
                         <input
                             type="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)} // E-posta state'ini güncelliyoruz
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
@@ -39,7 +71,7 @@ function ForgotPass() {
                         />
                     </div>
                     <div>
-                        <button className='btn' type="submit">Kaydol</button>
+                        <button className='btn' type="submit">Yenile</button>
                     </div>
                 </form>
                 <div>
@@ -47,7 +79,7 @@ function ForgotPass() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default ForgotPass
+export default ForgotPass;

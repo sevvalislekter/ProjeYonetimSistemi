@@ -13,7 +13,7 @@ function RegisterPages() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/register', {
+            const response = await axios.post('http://localhost/proje/register.php', {
                 username,
                 email,  // e-posta bilgisi de gönderiliyor
                 password
