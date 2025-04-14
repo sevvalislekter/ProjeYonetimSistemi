@@ -27,8 +27,7 @@ function DashboardPages() {
                     <li onClick={() => navigate('/add-worker')}>Çalışan Ekle</li>
                     <li onClick={() => navigate('/workers')}>Çalışanlar</li>
                     <li onClick={() => navigate('/mission')}>Görevleriniz</li>
-                    <li onClick={() => navigate('/proj')}>Projeleriniz</li>
-                    <li onClick={() => navigate('/exit')}>Çıkış</li>
+                    <li onClick={() => navigate('/')}>Çıkış</li>
                 </ul>
             </div>
             <div className="main-content">

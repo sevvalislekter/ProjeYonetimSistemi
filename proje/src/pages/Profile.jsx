@@ -36,10 +36,12 @@ function Profile() {
 
     return (
         <div className="dashboard-container">
+            {/* Sidebar */}
             <div className="sidebar">
                 <h2>Kullanıcı</h2>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
+                    <li onClick={() => navigate('/add-proje')}>Proje Ekle</li>
                     <li onClick={() => navigate('/projects')}>Projeler</li>
                     <li onClick={() => navigate('/add-mission')}>Görev Ekle</li>
                     <li onClick={() => navigate('/users')}>Kullanıcı Listesi</li>
@@ -47,17 +49,21 @@ function Profile() {
                     <li onClick={() => navigate('/add-worker')}>Çalışan Ekle</li>
                     <li onClick={() => navigate('/workers')}>Çalışanlar</li>
                     <li onClick={() => navigate('/mission')}>Görevleriniz</li>
-                    <li onClick={() => navigate('/proj')}>Projeleriniz</li>
-                    <li onClick={() => navigate('/exit')}>Çıkış</li>
+                    <li onClick={() => navigate('/')}>Çıkış</li>
                 </ul>
             </div>
 
+            {/* Main Content */}
             <div className="main-content">
                 <h2>Profilim</h2>
 
                 {/* Profil fotoğrafı */}
                 <div className="profile-image">
-                    <img src={userInfo.profileImage} alt="Profil" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+                    <img
+                        src={userInfo.profileImage}
+                        alt="Profil"
+                        style={{ width: '150px', height: '150px', borderRadius: '50%' }}
+                    />
                     <input
                         type="file"
                         onChange={handleImageChange}

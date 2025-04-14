@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function AddMission() {
     const navigate = useNavigate();
@@ -21,13 +22,52 @@ function AddMission() {
         { id: 5, name: "Zeynep Kaya" }
     ]);
 
-    const handleAddProject = (event) => {
+    // Form değerlerini tutmak için state
+    const [selectedProject, setSelectedProject] = useState('');
+    const [selectedWorker, setSelectedWorker] = useState('');
+    const [taskDescription, setTaskDescription] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+    const handleAddMission = async (event) => {
         event.preventDefault(); // Formun varsayılan submit işlemini engeller
-        alert("Görev başarıyla eklendi!");
+
+        // Formda seçilen projeleri ve çalışanları kontrol et
+        if (!selectedProject || !selectedWorker || !taskDescription || !startDate || !endDate) {
+            alert("Lütfen tüm alanları doldurun.");
+            return;
+        }
+
+        // API'ye veri gönderimi
+        try {
+            const response = await axios.post('http://localhost/proje/missionadd.php', {
+                project_id: selectedProject,
+                worker_id: selectedWorker,
+                task_description: taskDescription,
+                start_date: startDate,
+                end_date: endDate
+            });
+
+            if (response.data.success) {
+                alert(response.data.message); // Görev başarıyla eklendiğinde kullanıcıya mesaj göster
+                // Formu sıfırlama
+                setSelectedProject('');
+                setSelectedWorker('');
+                setTaskDescription('');
+                setStartDate('');
+                setEndDate('');
+            } else {
+                alert(response.data.message); // Hata mesajı
+            }
+        } catch (error) {
+            console.error("Görev eklerken bir hata oluştu:", error);
+            alert("Görev eklenirken bir hata oluştu.");
+        }
     };
 
     return (
         <div className="dashboard-container">
+            {/* Sidebar */}
             <div className="sidebar">
                 <h2>Kullanıcı</h2>
                 <ul>
@@ -40,18 +80,23 @@ function AddMission() {
                     <li onClick={() => navigate('/add-worker')}>Çalışan Ekle</li>
                     <li onClick={() => navigate('/workers')}>Çalışanlar</li>
                     <li onClick={() => navigate('/mission')}>Görevleriniz</li>
-                    <li onClick={() => navigate('/proj')}>Projeleriniz</li>
-                    <li onClick={() => navigate('/exit')}>Çıkış</li>
+                    <li onClick={() => navigate('/')}>Çıkış</li>
                 </ul>
             </div>
+
+            {/* Main content area */}
             <div className="main-content">
-                <form className='form' onSubmit={handleAddProject}>
+                <form className="form" onSubmit={handleAddMission}>
                     <h2>Görev Ekle</h2>
 
                     {/* Proje Seç */}
                     <div style={{ width: '900px', marginBottom: '20px' }}>
                         <label>Proje Seç</label>
-                        <select required>
+                        <select
+                            value={selectedProject}
+                            onChange={(e) => setSelectedProject(e.target.value)}
+                            required
+                        >
                             <option value="">Proje Seçiniz</option>
                             {projects.map((project) => (
                                 <option key={project.id} value={project.id}>
@@ -64,7 +109,11 @@ function AddMission() {
                     {/* Çalışan Seç */}
                     <div style={{ width: '900px', marginBottom: '20px' }}>
                         <label>Çalışan Seç</label>
-                        <select required>
+                        <select
+                            value={selectedWorker}
+                            onChange={(e) => setSelectedWorker(e.target.value)}
+                            required
+                        >
                             <option value="">Çalışan Seçiniz</option>
                             {workers.map((worker) => (
                                 <option key={worker.id} value={worker.id}>
@@ -74,21 +123,38 @@ function AddMission() {
                         </select>
                     </div>
 
-                    {/* Proje Açıklaması */}
+                    {/* Görev Açıklaması */}
                     <div style={{ width: '900px', marginBottom: '20px' }}>
-                        <input type="text" placeholder="Görev açıklaması" style={{ height: '70px' }} required />
+                        <input
+                            type="text"
+                            placeholder="Görev açıklaması"
+                            value={taskDescription}
+                            onChange={(e) => setTaskDescription(e.target.value)}
+                            required
+                            style={{ height: '70px' }}
+                        />
                     </div>
 
                     {/* Başlangıç Tarihi */}
                     <div className="btarih" style={{ marginBottom: '20px' }}>
                         Başlangıç Tarihi:
-                        <input type="date" required />
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            required
+                        />
                     </div>
 
                     {/* Bitiş Tarihi */}
                     <div style={{ marginBottom: '20px' }}>
                         Bitiş Tarihi:
-                        <input type="date" required />
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            required
+                        />
                     </div>
 
                     {/* Submit Button */}
