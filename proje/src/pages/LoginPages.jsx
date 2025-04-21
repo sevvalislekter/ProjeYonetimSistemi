@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // axios import ediliyor
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
-import { useNavigate } from 'react-router-dom'; // useNavigate import ediliyor
 
 const LoginPages = () => {
   const [username, setUsername] = useState('');
@@ -11,9 +11,8 @@ const LoginPages = () => {
   const navigate = useNavigate(); // useNavigate hook'u kullanılıyor
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Form gönderimi engelleniyor
 
-    // API'ye login isteği gönderiyoruz
     try {
       const response = await axios.post('http://localhost/proje/login.php', {
         username: username,
@@ -22,14 +21,14 @@ const LoginPages = () => {
       });
 
       if (response.data.success) {
-        // Başarılı giriş
+        // Başarılı giriş sonrası kullanıcı adını localStorage'a kaydediyoruz
+        localStorage.setItem('username', username); // Kullanıcı adını localStorage'a kaydediyoruz
         navigate('/home'); // Başarılı giriş sonrası yönlendirme yapılır
       } else {
-        // Hata mesajını göster
-        setErrorMessage(response.data.message);
+        setErrorMessage(response.data.message); // Hata mesajını göster
       }
     } catch (error) {
-      setErrorMessage('Bir hata oluştu, lütfen tekrar deneyin.');
+      setErrorMessage('Bir hata oluştu, lütfen tekrar deneyin.'); // Ağ hatası durumunda mesaj
     }
   };
 

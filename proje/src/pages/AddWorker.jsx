@@ -16,7 +16,7 @@ function AddWorker() {
 
     const [message, setMessage] = useState('');
 
-    // Çalışan ekleme fonksiyonu
+    // Çalışan ekleme fonksiyon
     const handleAddWorker = async (event) => {
         event.preventDefault(); // Formun varsayılan submit işlemini engeller
 
@@ -30,6 +30,9 @@ function AddWorker() {
             hire_date: event.target.hire_date.value,
             salary: event.target.salary.value
         };
+
+        // Burada veriyi konsola loglayalım
+        console.log("Yeni Çalışan Verisi:", newWorker);
 
         // Verileri PHP backend'e gönder
         try {
@@ -49,11 +52,11 @@ function AddWorker() {
         }
     };
 
+
     return (
         <div className="dashboard-container">
             {/* Sidebar */}
             <div className="sidebar">
-                <h2>Kullanıcı</h2>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={() => navigate('/add-proje')}>Proje Ekle</li>

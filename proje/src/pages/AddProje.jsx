@@ -34,7 +34,6 @@ function AddProje() {
     return (
         <div className="dashboard-container">
             <div className="sidebar">
-                <h2>Kullanıcı</h2>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={() => navigate('/add-proje')}>Proje Ekle</li>

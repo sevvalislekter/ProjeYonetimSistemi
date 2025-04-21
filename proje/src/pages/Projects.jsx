@@ -65,7 +65,6 @@ function Projects() {
         <div className="dashboard-container">
             {/* Sidebar */}
             <div className="sidebar">
-                <h2>Kullanıcı</h2>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={() => navigate('/add-proje')}>Proje Ekle</li>
@@ -89,27 +88,24 @@ function Projects() {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Proje Oluşturan</th>
                                 <th>Proje Adı</th>
                                 <th>Açıklama</th>
                                 <th>Başlangıç Tarihi</th>
                                 <th>Bitiş Tarihi</th>
-                                <th>Durum</th>
                                 <th>İşlem</th>
                             </tr>
                         </thead>
                         <tbody>
                             {projects.length === 0 ? (
-                                <tr><td colSpan="8">Hiç proje bulunamadı.</td></tr>
+                                <tr><td colSpan="6">Hiç proje bulunamadı.</td></tr>
                             ) : (
                                 projects.map((project) => (
                                     <tr key={project.id}>
                                         <td>{project.id}</td>
                                         <td>{project.pname}</td>
-                                        <td>{project.pdesc}</td>
-                                        <td>{project.startDate}</td>
-                                        <td>{project.endDate}</td>
-                                        <td>{project.status}</td>
+                                        <td>{project.descc}</td>
+                                        <td>{project.startdate}</td>
+                                        <td>{project.enddate}</td>
                                         <td>
                                             <button onClick={() => handleViewProject(project.id)}>Detay</button>
                                             <button onClick={() => handleDeleteProject(project.id)}>Sil</button>

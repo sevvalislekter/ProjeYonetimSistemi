@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function AddMission() {
     const navigate = useNavigate();
-
-    // Örnek projeler ve çalışanlar listesi
-    const [projects] = useState([
-        { id: 1, name: "Proje 1" },
-        { id: 2, name: "Proje 2" },
-        { id: 3, name: "Proje 3" },
-        { id: 4, name: "Proje 4" },
-        { id: 5, name: "Proje 5" }
-    ]);
-
-    const [workers] = useState([
-        { id: 1, name: "Ahmet Yılmaz" },
-        { id: 2, name: "Elif Demir" },
-        { id: 3, name: "Mehmet Kara" },
-        { id: 4, name: "Şevval İşlekter" },
-        { id: 5, name: "Zeynep Kaya" }
-    ]);
+    const [projects, setProjects] = useState([]);
+    const [workers, setWorkers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // Form değerlerini tutmak için state
     const [selectedProject, setSelectedProject] = useState('');
@@ -29,16 +16,46 @@ function AddMission() {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
-    const handleAddMission = async (event) => {
-        event.preventDefault(); // Formun varsayılan submit işlemini engeller
+    // Sayfa yüklendiğinde proje ve çalışan listelerini çek
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                setError(null);
 
-        // Formda seçilen projeleri ve çalışanları kontrol et
+                // Projeleri çek
+                const projectsResponse = await axios.get('http://localhost/proje/projelerigetirr.php');
+                if (!projectsResponse.data.success) {
+                    throw new Error(projectsResponse.data.message || 'Projeler alınamadı');
+                }
+                setProjects(projectsResponse.data.projects);
+
+                // Çalışanları çek
+                const workersResponse = await axios.get('http://localhost/proje/workerr.php');
+                if (!workersResponse.data.success) {
+                    throw new Error(workersResponse.data.message || 'Çalışanlar alınamadı');
+                }
+                setWorkers(workersResponse.data.workers);
+
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+                console.error("Veri çekme hatası:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const handleAddMission = async (event) => {
+        event.preventDefault();
+
         if (!selectedProject || !selectedWorker || !taskDescription || !startDate || !endDate) {
             alert("Lütfen tüm alanları doldurun.");
             return;
         }
 
-        // API'ye veri gönderimi
         try {
             const response = await axios.post('http://localhost/proje/missionadd.php', {
                 project_id: selectedProject,
@@ -49,15 +66,14 @@ function AddMission() {
             });
 
             if (response.data.success) {
-                alert(response.data.message); // Görev başarıyla eklendiğinde kullanıcıya mesaj göster
-                // Formu sıfırlama
+                alert(response.data.message);
                 setSelectedProject('');
                 setSelectedWorker('');
                 setTaskDescription('');
                 setStartDate('');
                 setEndDate('');
             } else {
-                alert(response.data.message); // Hata mesajı
+                alert(response.data.message);
             }
         } catch (error) {
             console.error("Görev eklerken bir hata oluştu:", error);
@@ -65,11 +81,18 @@ function AddMission() {
         }
     };
 
+    if (loading) {
+        return <div>Yükleniyor...</div>;
+    }
+
+    if (error) {
+        return <div>Hata: {error}</div>;
+    }
+
     return (
         <div className="dashboard-container">
             {/* Sidebar */}
             <div className="sidebar">
-                <h2>Kullanıcı</h2>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={() => navigate('/add-proje')}>Proje Ekle</li>
@@ -100,7 +123,7 @@ function AddMission() {
                             <option value="">Proje Seçiniz</option>
                             {projects.map((project) => (
                                 <option key={project.id} value={project.id}>
-                                    {project.name}
+                                    {project.pname}
                                 </option>
                             ))}
                         </select>
@@ -117,7 +140,7 @@ function AddMission() {
                             <option value="">Çalışan Seçiniz</option>
                             {workers.map((worker) => (
                                 <option key={worker.id} value={worker.id}>
-                                    {worker.name}
+                                    {worker.first_name}
                                 </option>
                             ))}
                         </select>

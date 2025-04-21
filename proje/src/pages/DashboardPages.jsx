@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../css/Dashboard.css';
+import { useUser } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
 
 function DashboardPages() {
@@ -9,14 +10,19 @@ function DashboardPages() {
         { id: 3, name: 'Proje 3', desc: 'Açıklama3' },
     ]);
     const navigate = useNavigate();
+
     const handleAddProject = () => {
         navigate('/add-proje');
     };
 
+    // Kullanıcı adı, localStorage'dan alınır
+    const username = localStorage.getItem('username');
+
     return (
         <div className="dashboard-container">
             <div className="sidebar">
-                <h2>Kullanıcı</h2>
+                <h2>{username ? `${username.charAt(0).toUpperCase() + username.slice(1)}` : 'Ziyaretçi'}</h2>
+
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={handleAddProject}>Proje Ekle</li>
@@ -30,30 +36,32 @@ function DashboardPages() {
                     <li onClick={() => navigate('/')}>Çıkış</li>
                 </ul>
             </div>
+
             <div className="main-content">
-                <h1 >HOŞ GELDİNİZ</h1>
+                <h1>HOŞ GELDİNİZ</h1>
                 <div className="box-container">
                     <div className="box1">
-                        <h3 >Tüm Projeler</h3>
+                        <h3>Tüm Projeler</h3>
                     </div>
                     <div className="box2">
-                        <h3 >Tamamlanan Projeler</h3>
+                        <h3>Tamamlanan Projeler</h3>
                     </div>
                     <div className="box3">
-                        <h3 >Devam Eden Projeler</h3>
+                        <h3>Devam Eden Projeler</h3>
                     </div>
                     <div className="box4">
-                        <h3 >Tamamlanacak Projeler</h3>
+                        <h3>Tamamlanacak Projeler</h3>
                     </div>
                 </div>
+
                 <div className="projeler">
-                    <h3 className='pro'>Projeler</h3>
+                    <h3 className="pro">Projeler</h3>
                     Kullanıcılar tarafından oluşturulacak projeler
                     <div className="list">
-                        <table className='tbl'>
-                            <thead >
-                                <tr >
-                                    <th >ID</th>
+                        <table className="tbl">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
                                     <th>Proje Adı</th>
                                     <th>Açıklama</th>
                                     <th>Başlangıç Tarihi</th>

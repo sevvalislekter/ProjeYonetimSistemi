@@ -10,24 +10,26 @@ import Profile from './pages/Profile';
 import AddWorker from './pages/AddWorker';
 import Workers from './pages/Workers';
 import Missions from './pages/Missions';
+import { UserProvide } from './UserContext';
 
 function App() {
     return (
-        <Routes>
-            <Route path="/" element={<LoginPages />} />
-            <Route path="/home" element={<DashboardPages />} />
-            <Route path='/add-proje' element={<AddProje />} />
-            <Route path='/projects' element={<Projects />} />
-            <Route path='/add-mission' element={<AddMission />} />
-            <Route path='/users' element={<UserList />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/add-worker' element={<AddWorker />} />
-            <Route path='/workers' element={<Workers />} />
-            <Route path='/mission' element={<Missions />} />
-            <Route path='/' element={<LoginPages />} />
+        <UserProvide>
+            <Routes>
+                {/* LoginPage rotasını sadece bir kez tanımlayın */}
+                <Route path="/" element={<LoginPages />} />
 
-
-        </Routes>
+                <Route path="/home" element={<DashboardPages />} />
+                <Route path='/add-proje' element={<AddProje />} />
+                <Route path='/projects' element={<Projects />} />
+                <Route path='/add-mission' element={<AddMission />} />
+                <Route path='/users' element={<UserList />} />
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/add-worker' element={<AddWorker />} />
+                <Route path='/workers' element={<Workers />} />
+                <Route path='/mission' element={<Missions />} />
+            </Routes>
+        </UserProvide>
     );
 }
 
