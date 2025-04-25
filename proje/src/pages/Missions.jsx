@@ -1,30 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function MyMissions() {
     const navigate = useNavigate();
+    const [missions, setMissions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Örnek görevler
-    const [missions, setMissions] = useState([
-        { id: 1, project: "Proje 1", description: "Görev 1 Açıklaması", startDate: "2025-04-01", endDate: "2025-04-10", status: "Devam Ediyor" },
-        { id: 2, project: "Proje 2", description: "Görev 2 Açıklaması", startDate: "2025-04-05", endDate: "2025-04-12", status: "Devam Ediyor" },
-        { id: 3, project: "Proje 3", description: "Görev 3 Açıklaması", startDate: "2025-04-02", endDate: "2025-04-08", status: "Tamamlandı" },
-        { id: 4, project: "Proje 4", description: "Görev 4 Açıklaması", startDate: "2025-04-03", endDate: "2025-04-15", status: "Devam Ediyor" },
-        { id: 5, project: "Proje 5", description: "Görev 5 Açıklaması", startDate: "2025-04-10", endDate: "2025-04-20", status: "Devam Ediyor" }
-    ]);
+    useEffect(() => {
+        const fetchMissions = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await axios.get('http://localhost/proje/mission.php');
 
-    // Görevi tamamlama işlemi
-    const handleCompleteMission = (missionId) => {
-        const updatedMissions = missions.map(mission =>
-            mission.id === missionId ? { ...mission, status: "Tamamlandı" } : mission
-        );
-        setMissions(updatedMissions);
-        alert("Görev başarıyla tamamlandı!");
+                if (response.data.success) {
+                    setMissions(response.data.missions || []);
+                } else {
+                    setError(response.data.message || "Görevler alınırken bir hata oluştu.");
+                }
+            } catch (error) {
+                setError("Görevler alınırken bir hata oluştu.");
+                console.error("Hata:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMissions();
+    }, []);
+
+    const handleCompleteMission = async (missionId) => {
+        try {
+            const response = await axios.post('http://localhost/proje/complete_mission.php', {
+                missionId: missionId
+            });
+
+            if (response.data.success) {
+                setMissions(missions.filter(mission => mission.id !== missionId));
+                alert("Görev başarıyla tamamlandı!");
+            } else {
+                alert(response.data.message || "Görev tamamlanırken bir hata oluştu.");
+            }
+        } catch (error) {
+            console.error("Görev tamamlanırken hata:", error);
+            alert("Görev tamamlanırken bir hata oluştu.");
+        }
     };
 
     return (
         <div className="dashboard-container">
-            {/* Sidebar */}
             <div className="sidebar">
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
@@ -40,32 +66,30 @@ function MyMissions() {
                 </ul>
             </div>
 
-            {/* Main Content */}
             <div className="main-content">
                 <h2>Görevleriniz</h2>
 
-                {/* Görevler listesi */}
-                <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-                    <thead>
-                        <tr>
-                            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Proje</th>
-                            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Açıklama</th>
-                            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Başlangıç Tarihi</th>
-                            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Bitiş Tarihi</th>
-                            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Durum</th>
-                            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>İşlem</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {missions.map(mission => (
-                            <tr key={mission.id}>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.project}</td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.description}</td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.startDate}</td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.endDate}</td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.status}</td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {mission.status === "Devam Ediyor" ? (
+                {loading ? (
+                    <p>Yükleniyor...</p>
+                ) : error ? (
+                    <p style={{ color: 'red' }}>{error}</p>
+                ) : missions.length === 0 ? (
+                    <p>Hiç görev bulunamadı.</p>
+                ) : (
+                    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+                        <thead>
+                            <tr>
+                                <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Görev ID</th>
+                                <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Görev Açıklaması</th>
+                                <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {missions.map(mission => (
+                                <tr key={mission.id}>
+                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.id}</td>
+                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.task_description || '-'}</td>
+                                    <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
                                         <button
                                             onClick={() => handleCompleteMission(mission.id)}
                                             style={{
@@ -73,19 +97,18 @@ function MyMissions() {
                                                 backgroundColor: '#2ecc71',
                                                 color: 'white',
                                                 border: 'none',
-                                                cursor: 'pointer'
+                                                cursor: 'pointer',
+                                                borderRadius: '4px'
                                             }}
                                         >
                                             Tamamla
                                         </button>
-                                    ) : (
-                                        <span style={{ color: '#7f8c8d' }}>Tamamlandı</span>
-                                    )}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
     );
