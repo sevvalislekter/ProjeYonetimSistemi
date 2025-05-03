@@ -10,26 +10,33 @@ import Profile from './pages/Profile';
 import AddWorker from './pages/AddWorker';
 import Workers from './pages/Workers';
 import Missions from './pages/Missions';
-import { UserProvide } from './UserContext';
+import Feedbacks from './pages/Feedbacks';
+import Planlayıcı from './pages/Planlayıcı';
+import Duyuru from './pages/Duyuru';
 
 function App() {
     return (
-        <UserProvide>
-            <Routes>
-                {/* LoginPage rotasını sadece bir kez tanımlayın */}
-                <Route path="/" element={<LoginPages />} />
 
-                <Route path="/home" element={<DashboardPages />} />
-                <Route path='/add-proje' element={<AddProje />} />
-                <Route path='/projects' element={<Projects />} />
-                <Route path='/add-mission' element={<AddMission />} />
-                <Route path='/users' element={<UserList />} />
-                <Route path='/profile' element={<Profile />} />
-                <Route path='/add-worker' element={<AddWorker />} />
-                <Route path='/workers' element={<Workers />} />
-                <Route path='/mission' element={<Missions />} />
-            </Routes>
-        </UserProvide>
+        <Routes>
+            {/* LoginPage rotasını sadece bir kez tanımlayın */}
+            <Route path="/" element={<LoginPages />} />
+
+            <Route path="/home" element={<DashboardPages />} />
+            <Route path='/add-proje' element={<AddProje />} />
+            <Route path='/projects' element={<Projects />} />
+            <Route path='/add-mission' element={<AddMission />} />
+            <Route path='/users' element={<UserList />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/add-worker' element={<AddWorker />} />
+            <Route path='/workers' element={<Workers />} />
+            <Route path='/mission' element={<Missions />} />
+            <Route path='/feedbacks' element={<Feedbacks />} />
+            <Route path='/planlayıcı' element={<Planlayıcı />} />
+            <Route path='/duyuru' element={<Duyuru />} />
+
+
+        </Routes>
+
     );
 }
 

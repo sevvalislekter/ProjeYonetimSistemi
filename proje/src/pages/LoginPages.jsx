@@ -10,6 +10,7 @@ const LoginPages = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate(); // useNavigate hook'u kullanılıyor
 
+  // handleLogin fonksiyonu, formun submit edilmesiyle çalışacak
   const handleLogin = async (e) => {
     e.preventDefault(); // Form gönderimi engelleniyor
 
@@ -21,7 +22,8 @@ const LoginPages = () => {
       });
 
       if (response.data.success) {
-        // Başarılı giriş sonrası kullanıcı adını localStorage'a kaydediyoruz
+        // Başarılı giriş sonrası kullanıcı ID'sini localStorage'a kaydediyoruz
+        localStorage.setItem('userId', response.data.userId); // Kullanıcı ID'sini localStorage'a kaydediyoruz
         localStorage.setItem('username', username); // Kullanıcı adını localStorage'a kaydediyoruz
         navigate('/home'); // Başarılı giriş sonrası yönlendirme yapılır
       } else {

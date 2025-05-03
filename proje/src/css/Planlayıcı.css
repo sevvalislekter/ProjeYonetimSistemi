@@ -1,0 +1,13 @@
+.plan-form {
+    margin-top: 200px;
+    color: black;
+    font-size: medium;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+    padding: 12px 10px;
+}
+
+input {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+}

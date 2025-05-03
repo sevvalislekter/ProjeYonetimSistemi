@@ -33,7 +33,8 @@ function AddProje() {
 
     return (
         <div className="dashboard-container">
-            <div className="sidebar">
+            <div className="sidebar" style={{ width: '220px', padding: '20px', height: '100vh' }}>
+                <h3>Menü</h3>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={() => navigate('/add-proje')}>Proje Ekle</li>
@@ -43,7 +44,7 @@ function AddProje() {
                     <li onClick={() => navigate('/profile')}>Profil</li>
                     <li onClick={() => navigate('/add-worker')}>Çalışan Ekle</li>
                     <li onClick={() => navigate('/workers')}>Çalışanlar</li>
-                    <li onClick={() => navigate('/mission')}>Görevleriniz</li>
+                    <li onClick={() => navigate('/mission')}>Görevler</li>
                     <li onClick={() => navigate('/')}>Çıkış</li>
                 </ul>
             </div>
