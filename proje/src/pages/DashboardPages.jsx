@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../css/Dashboard.css';
-import { useUser } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
 
 function DashboardPages() {
@@ -20,7 +19,7 @@ function DashboardPages() {
 
     return (
         <div className="dashboard-container">
-            <div className="sidebar">
+            <div className="sidebar" style={{ width: '220px', padding: '20px', height: '100vh' }}>
                 <h2>{username ? `${username.charAt(0).toUpperCase() + username.slice(1)}` : 'Ziyaretçi'}</h2>
 
                 <ul>
@@ -32,7 +31,7 @@ function DashboardPages() {
                     <li onClick={() => navigate('/profile')}>Profil</li>
                     <li onClick={() => navigate('/add-worker')}>Çalışan Ekle</li>
                     <li onClick={() => navigate('/workers')}>Çalışanlar</li>
-                    <li onClick={() => navigate('/mission')}>Görevleriniz</li>
+                    <li onClick={() => navigate('/mission')}>Görevler</li>
                     <li onClick={() => navigate('/')}>Çıkış</li>
                 </ul>
             </div>
@@ -41,22 +40,22 @@ function DashboardPages() {
                 <h1>HOŞ GELDİNİZ</h1>
                 <div className="box-container">
                     <div className="box1">
-                        <h3>Tüm Projeler</h3>
+                        <h3 onClick={() => navigate('/projects')}>Tüm Projeler</h3>
                     </div>
                     <div className="box2">
-                        <h3>Tamamlanan Projeler</h3>
+                        <h3 onClick={() => navigate('/feedbacks')}>Geri Bildirim</h3>
                     </div>
                     <div className="box3">
-                        <h3>Devam Eden Projeler</h3>
+                        <h3 onClick={() => navigate('/planlayıcı')}>Planlayıcı </h3>
                     </div>
                     <div className="box4">
-                        <h3>Tamamlanacak Projeler</h3>
+                        <h3 onClick={() => navigate('/duyuru')}>Duyurular</h3>
                     </div>
                 </div>
 
                 <div className="projeler">
-                    <h3 className="pro">Projeler</h3>
-                    Kullanıcılar tarafından oluşturulacak projeler
+                    <h3 className="pro">Duyurular</h3>
+                    Kullanıcılar tarafından
                     <div className="list">
                         <table className="tbl">
                             <thead>

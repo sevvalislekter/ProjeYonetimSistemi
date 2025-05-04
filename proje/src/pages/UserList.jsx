@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate kullanabilmek için içe aktarım yapıyoruz
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function UserList() {
-    const navigate = useNavigate(); // useNavigate hook'u ile yönlendirme işlemi için kullanıyoruz.
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [users, setUsers] = useState([]); // Başlangıçta boş dizi
 
-    // Örnek projeler verisi (Gerçek bir uygulamada API'den alınabilir)
-    const [users] = useState([ // projects yerine users kullanıyoruz, çünkü bu kullanıcı listesi
-        { id: 1, name: "Hümeyra Artut", email: "hosa193@gmail.com", startDate: "2025-03-01", registrationDate: "2025-03-05" },
-        { id: 2, name: "Cem Sev", email: "22091167@stu.istinye.edu.tr", startDate: "2025-04-01", registrationDate: "2025-04-05" },
-        { id: 3, name: "Pınar Çomar", email: "pinar123@gmail.com", startDate: "2025-05-01", registrationDate: "2025-05-05" },
-    ]);
+    useEffect(() => {
+        const fetchUsers = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await axios.get('http://localhost/proje/user.php');
+                if (response.data.success) {
+                    setUsers(response.data.users); // users'ı güncelliyoruz
+                } else {
+                    setError(response.data.message || "Kullanıcılar alınırken bir hata oluştu.");
+                }
+            } catch (error) {
+                setError("Kullanıcılar alınırken bir ağ hatası oluştu.");
+                console.error("Hata:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUsers();
+    }, []); // Component mount olduğunda çalışacak
 
     return (
         <div className="dashboard-container">
             {/* Sidebar */}
-            <div className="sidebar">
+            <div className="sidebar" style={{ width: '220px', padding: '20px', height: '100vh' }}>
+                <h3>Menü</h3>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={() => navigate('/add-proje')}>Proje Ekle</li>
@@ -31,36 +51,35 @@ function UserList() {
 
             {/* Main Content */}
             <div className="main-content">
-                <h3 style={{ color: 'black' }}>Kullanıcı Listesi</h3>
-                Tüm Kullanıcılar:
-                <form>
-                    <div className="cont">
-                        <div className="list">
-                            <table className="tbl">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Adı Soyadı</th>
-                                        <th>E-mail Adresi</th>
-                                        <th>Başlangıç Tarihi</th>
-                                        <th>Kayıt Tarihi</th>
+                <h3 style={{ color: 'gray' }}>Kullanıcı Listesi</h3>
+                {loading ? (
+                    <p>Yükleniyor...</p>
+                ) : error ? (
+                    <p style={{ color: 'red' }}>{error}</p>
+                ) : (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Adı </th>
+                                <th>E-mail Adresi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users && users.length > 0 ? ( // users dizisini kontrol et
+                                users.map((user) => (
+                                    <tr key={user.id}>
+                                        <td>{user.id}</td>
+                                        <td>{user.username}</td>
+                                        <td>{user.email}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {users.map((user) => (
-                                        <tr key={user.id}>
-                                            <td>{user.id}</td>
-                                            <td>{user.name}</td>
-                                            <td>{user.email}</td>
-                                            <td>{user.startDate}</td>
-                                            <td>{user.registrationDate}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>
+                                ))
+                            ) : (
+                                <tr><td colSpan="3">Hiç kullanıcı bulunamadı.</td></tr>
+                            )}
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
     );
