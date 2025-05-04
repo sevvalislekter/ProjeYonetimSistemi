@@ -28,41 +28,44 @@ function RegisterPages() {
 
     return (
         <div className='login-container'>
-            <h2>Kayıt Sayfası</h2>
-            <form className='form' onSubmit={handleSubmit}>
+            <div style={{ border: '1px solid black', padding: '50px', backgroundColor: 'ghostwhite' }}>
+                <h2 style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>Kayıt Sayfası</h2>
+
+                <form className='form' onSubmit={handleSubmit}>
+                    <div>
+                        <label>Kullanıcı Adı: </label>
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>E-mail: </label> {/* E-posta alanı eklendi */}
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} // E-posta state'ini güncelliyoruz
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className='pass'>Şifre Oluştur: </label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <button className='btn' type="submit">Kaydol</button>
+                    </div>
+                </form>
                 <div>
-                    <label>Kullanıcı Adı: </label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
+                    <button className='btn' onClick={() => navigate('/')}>Giriş</button>
                 </div>
-                <div>
-                    <label>E-mail: </label> {/* E-posta alanı eklendi */}
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)} // E-posta state'ini güncelliyoruz
-                        required
-                    />
-                </div>
-                <div>
-                    <label className='pass'>Şifre Oluştur: </label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <button className='btn' type="submit">Kaydol</button>
-                </div>
-            </form>
-            <div>
-                <button className='btn' onClick={() => navigate('/')}>Giriş</button>
             </div>
         </div>
     );

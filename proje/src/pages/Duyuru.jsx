@@ -35,26 +35,41 @@ function Duyuru() {
                     placeholder="Duyuru Başlığı"
                     value={baslik}
                     onChange={(e) => setBaslik(e.target.value)}
+                    required
                 />
                 <textarea
                     placeholder="Duyuru İçeriği"
                     value={icerik}
                     onChange={(e) => setIcerik(e.target.value)}
+                    required
                 />
-                <button type="submit">Duyuru Ekle</button>
+                <div>
+                    <button className="buton" type="submit">Duyuru Ekle</button>
+                </div>
             </form>
 
             <div className="duyuru-listesi">
                 {duyurular.length === 0 ? (
                     <p>Henüz duyuru yok.</p>
                 ) : (
-                    duyurular.map((duyuru) => (
-                        <div key={duyuru.id} className="duyuru-karti">
-                            <h3>{duyuru.baslik}</h3>
-                            <p>{duyuru.icerik}</p>
-                            <span>{duyuru.tarih}</span>
-                        </div>
-                    ))
+                    <table className="duyuru-tablo">
+                        <thead>
+                            <tr>
+                                <th>Duyuru Başlığı</th>
+                                <th>Duyuru İçeriği</th>
+                                <th>Duyuru Tarihi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {duyurular.map((duyuru) => (
+                                <tr key={duyuru.id}>
+                                    <td>{duyuru.baslik}</td>
+                                    <td>{duyuru.icerik}</td>
+                                    <td>{duyuru.tarih}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 )}
             </div>
         </div>

@@ -13,6 +13,8 @@ import Missions from './pages/Missions';
 import Feedbacks from './pages/Feedbacks';
 import Planlayıcı from './pages/Planlayıcı';
 import Duyuru from './pages/Duyuru';
+import RegisterPages from './pages/RegisterPages';
+import ForgotPass from './pages/ForgotPass';
 
 function App() {
     return (
@@ -33,6 +35,8 @@ function App() {
             <Route path='/feedbacks' element={<Feedbacks />} />
             <Route path='/planlayıcı' element={<Planlayıcı />} />
             <Route path='/duyuru' element={<Duyuru />} />
+            <Route path='/register' element={<RegisterPages />} />
+            <Route path='/forgot-password' element={<ForgotPass />} />
 
 
         </Routes>

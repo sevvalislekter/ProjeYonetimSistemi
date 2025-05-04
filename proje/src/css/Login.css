@@ -6,6 +6,7 @@
     justify-content: center;
     background-color: #ceddd6;
 
+
 }
 
 .form {
@@ -13,6 +14,8 @@
     flex-direction: column;
     width: 300px;
     border-bottom: 1px solid black;
+
+
 }
 
 .form div {
@@ -28,12 +31,16 @@ input {
 .btn {
     padding: 10px 15px;
     margin: 5px;
-    background-color: #007bff;
+    background-color: cadetblue;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #e6e6e6;
+}
+
+input {
+    background-color: #e6e6e6;
 }

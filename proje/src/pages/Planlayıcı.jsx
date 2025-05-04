@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/Planlayıcı.css';
 
 function PlanlayiciSayfasi() {
@@ -6,6 +6,12 @@ function PlanlayiciSayfasi() {
     const [title, setTitle] = useState('');
     const [date, setDate] = useState('');
     const [status, setStatus] = useState('');
+
+    // Sayfa yüklendiğinde localStorage'dan verileri çek
+    useEffect(() => {
+        const storedPlans = JSON.parse(localStorage.getItem('plans')) || [];
+        setPlans(storedPlans);
+    }, []);
 
     const insert = (e) => {
         e.preventDefault();
@@ -22,7 +28,10 @@ function PlanlayiciSayfasi() {
             status
         };
 
-        setPlans([...plans, newPlan]);
+        const updatedPlans = [...plans, newPlan];
+        setPlans(updatedPlans);
+        localStorage.setItem('plans', JSON.stringify(updatedPlans)); // localStorage'a kaydet
+
         setTitle('');
         setDate('');
         setStatus('');

@@ -36,50 +36,52 @@ const LoginPages = () => {
 
   return (
     <div className="login-container">
-      <h1>Proje Yönetim Takip Sistemi</h1>
-      <h2>Giriş Yap</h2>
-      <form className="form" onSubmit={handleLogin}>
+      <div style={{ border: '1px solid black', padding: '50px', backgroundColor: '#ffffff' }}>
+        <h1 >Proje Yönetim Takip Sistemi</h1>
+        <form className="form" onSubmit={handleLogin}>
+          <h2 style={{ fontFamily: 'initial', textAlign: 'center', fontFamily: 'Garamond' }}>Giriş Yap</h2>
+          <div >
+            <label>Kullanıcı Adı:</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>E-mail:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="pass">Şifre:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          <div>
+            <button className="btn" type="submit">
+              Giriş Yap
+            </button>
+          </div>
+        </form>
         <div>
-          <label>Kullanıcı Adı:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>E-mail:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className="pass">Şifre:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <div>
-          <button className="btn" type="submit">
-            Giriş Yap
+          <button className="btn" onClick={() => navigate('/register')}>
+            Kayıt Ol
+          </button>
+          <button className="btn" onClick={() => navigate('/forgot-password')}>
+            Şifremi Unuttum
           </button>
         </div>
-      </form>
-      <div>
-        <button className="btn" onClick={() => navigate('/register')}>
-          Kayıt Ol
-        </button>
-        <button className="btn" onClick={() => navigate('/forgot-password')}>
-          Şifremi Unuttum
-        </button>
       </div>
     </div>
   );

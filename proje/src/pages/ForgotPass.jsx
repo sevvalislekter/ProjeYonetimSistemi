@@ -41,41 +41,43 @@ function ForgotPass() {
     return (
         <div>
             <div className='login-container'>
-                <h2>Şifre Yenileme</h2>
-                <form className='form' onSubmit={handleSubmit}>
+                <div style={{ border: '1px solid black', padding: '50px', backgroundColor: 'ghostwhite' }}>
+                    <h2 style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>Şifre Yenileme</h2>
+                    <form className='form' onSubmit={handleSubmit}>
+                        <div>
+                            <label>Kullanıcı Adı: </label>
+                            <input
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>E-mail: </label>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className='pass'>Yeni Şifre: </label>
+                            <input
+                                type="password"
+                                value={pass}
+                                onChange={(e) => setPass(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <button className='btn' type="submit">Yenile</button>
+                        </div>
+                    </form>
                     <div>
-                        <label>Kullanıcı Adı: </label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
+                        <button className='btn' onClick={() => navigate('/')}>Giriş</button>
                     </div>
-                    <div>
-                        <label>E-mail: </label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className='pass'>Yeni Şifre: </label>
-                        <input
-                            type="password"
-                            value={pass}
-                            onChange={(e) => setPass(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <button className='btn' type="submit">Yenile</button>
-                    </div>
-                </form>
-                <div>
-                    <button className='btn' onClick={() => navigate('/')}>Giriş</button>
                 </div>
             </div>
         </div>
