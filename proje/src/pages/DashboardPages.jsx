@@ -25,7 +25,12 @@ function DashboardPages() {
     return (
         <div className="dashboard-container">
             <div className="sidebar" style={{ width: '220px', padding: '20px', height: '100vh' }}>
+<<<<<<< HEAD
                 <h2 style={{ fontFamily: 'sans-serif' }}>{username ? `${username.charAt(0).toUpperCase() + username.slice(1)}` : 'Ziyaretçi'}</h2>
+=======
+                <h2>{username ? `${username.charAt(0).toUpperCase() + username.slice(1)}` : 'Ziyaretçi'}</h2>
+
+>>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={handleAddProject}>Proje Ekle</li>
@@ -50,16 +55,26 @@ function DashboardPages() {
                         <h3 onClick={() => navigate('/feedbacks')}>Geri Bildirim</h3>
                     </div>
                     <div className="box3">
+<<<<<<< HEAD
                         <h3 onClick={() => navigate('/planlayıcı')}>Planlayıcı</h3>
+=======
+                        <h3 onClick={() => navigate('/planlayıcı')}>Planlayıcı </h3>
+>>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
                     </div>
                     <div className="box4">
                         <h3 onClick={() => navigate('/duyuru')}>Duyurular</h3>
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <div className="projeler" style={{ marginTop: '40px' }}>
                     <h3 className="pro">Planlayıcı Görevleri</h3>
                     Kullanıcı tarafından
+=======
+                <div className="projeler">
+                    <h3 className="pro">Duyurular</h3>
+                    Kullanıcılar tarafından
+>>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
                     <div className="list">
                         <table className="tbl">
                             <thead>

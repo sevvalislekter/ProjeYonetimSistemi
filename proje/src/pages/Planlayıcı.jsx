@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
 import '../css/Planlayıcı.css';
 
 function PlanlayiciSayfasi() {
@@ -7,12 +11,15 @@ function PlanlayiciSayfasi() {
     const [date, setDate] = useState('');
     const [status, setStatus] = useState('');
 
+<<<<<<< HEAD
     // Sayfa yüklendiğinde localStorage'dan verileri çek
     useEffect(() => {
         const storedPlans = JSON.parse(localStorage.getItem('plans')) || [];
         setPlans(storedPlans);
     }, []);
 
+=======
+>>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
     const insert = (e) => {
         e.preventDefault();
 
@@ -28,10 +35,14 @@ function PlanlayiciSayfasi() {
             status
         };
 
+<<<<<<< HEAD
         const updatedPlans = [...plans, newPlan];
         setPlans(updatedPlans);
         localStorage.setItem('plans', JSON.stringify(updatedPlans)); // localStorage'a kaydet
 
+=======
+        setPlans([...plans, newPlan]);
+>>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
         setTitle('');
         setDate('');
         setStatus('');
