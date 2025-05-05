@@ -35,32 +35,23 @@ function Duyuru() {
                     placeholder="Duyuru Başlığı"
                     value={baslik}
                     onChange={(e) => setBaslik(e.target.value)}
-<<<<<<< HEAD
                     required
-=======
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
                 />
                 <textarea
                     placeholder="Duyuru İçeriği"
                     value={icerik}
                     onChange={(e) => setIcerik(e.target.value)}
-<<<<<<< HEAD
                     required
                 />
                 <div>
                     <button className="buton" type="submit">Duyuru Ekle</button>
                 </div>
-=======
-                />
-                <button type="submit">Duyuru Ekle</button>
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
             </form>
 
             <div className="duyuru-listesi">
                 {duyurular.length === 0 ? (
                     <p>Henüz duyuru yok.</p>
                 ) : (
-<<<<<<< HEAD
                     <table className="duyuru-tablo">
                         <thead>
                             <tr>
@@ -79,15 +70,6 @@ function Duyuru() {
                             ))}
                         </tbody>
                     </table>
-=======
-                    duyurular.map((duyuru) => (
-                        <div key={duyuru.id} className="duyuru-karti">
-                            <h3>{duyuru.baslik}</h3>
-                            <p>{duyuru.icerik}</p>
-                            <span>{duyuru.tarih}</span>
-                        </div>
-                    ))
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
                 )}
             </div>
         </div>

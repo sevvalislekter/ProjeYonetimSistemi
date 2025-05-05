@@ -168,7 +168,7 @@ function AddWorker() {
                     </div>
 
                     {/* Submit Button */}
-                    <button
+                    <button className='buton'
                         type="submit"
                         style={{
                             padding: '10px 20px',

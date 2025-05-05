@@ -13,11 +13,8 @@ import Missions from './pages/Missions';
 import Feedbacks from './pages/Feedbacks';
 import Planlayıcı from './pages/Planlayıcı';
 import Duyuru from './pages/Duyuru';
-<<<<<<< HEAD
 import RegisterPages from './pages/RegisterPages';
 import ForgotPass from './pages/ForgotPass';
-=======
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
 
 function App() {
     return (
@@ -38,14 +35,12 @@ function App() {
             <Route path='/feedbacks' element={<Feedbacks />} />
             <Route path='/planlayıcı' element={<Planlayıcı />} />
             <Route path='/duyuru' element={<Duyuru />} />
-<<<<<<< HEAD
             <Route path='/register' element={<RegisterPages />} />
             <Route path='/forgot-password' element={<ForgotPass />} />
-=======
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
 
 
-        </Routes>
+
+        </Routes >
 
     );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // useEffect buraya eklendi
+import React, { useState, useEffect } from 'react';
 import '../css/Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,29 +8,26 @@ function DashboardPages() {
         { id: 2, name: 'Proje 2', desc: 'Açıklama2' },
         { id: 3, name: 'Proje 3', desc: 'Açıklama3' },
     ]);
-    const navigate = useNavigate();
     const [plans, setPlans] = useState([]);
-
-    const handleAddProject = () => {
-        navigate('/add-proje');
-    };
+    const navigate = useNavigate();
 
     useEffect(() => {
         const savedPlans = JSON.parse(localStorage.getItem('plans')) || [];
         setPlans(savedPlans);
     }, []);
 
+    const handleAddProject = () => {
+        navigate('/add-proje');
+    };
+
     const username = localStorage.getItem('username');
 
     return (
         <div className="dashboard-container">
             <div className="sidebar" style={{ width: '220px', padding: '20px', height: '100vh' }}>
-<<<<<<< HEAD
-                <h2 style={{ fontFamily: 'sans-serif' }}>{username ? `${username.charAt(0).toUpperCase() + username.slice(1)}` : 'Ziyaretçi'}</h2>
-=======
-                <h2>{username ? `${username.charAt(0).toUpperCase() + username.slice(1)}` : 'Ziyaretçi'}</h2>
-
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
+                <h2 style={{ fontFamily: 'sans-serif' }}>
+                    {username ? `${username.charAt(0).toUpperCase() + username.slice(1)}` : 'Ziyaretçi'}
+                </h2>
                 <ul>
                     <li onClick={() => navigate('/home')}>Anasayfa</li>
                     <li onClick={handleAddProject}>Proje Ekle</li>
@@ -48,33 +45,22 @@ function DashboardPages() {
             <div className="main-content">
                 <h1>HOŞ GELDİNİZ</h1>
                 <div className="box-container">
-                    <div className="box1">
-                        <h3 onClick={() => navigate('/projects')}>Tüm Projeler</h3>
+                    <div className="box1" onClick={() => navigate('/projects')}>
+                        <h3>Tüm Projeler</h3>
                     </div>
-                    <div className="box2">
-                        <h3 onClick={() => navigate('/feedbacks')}>Geri Bildirim</h3>
+                    <div className="box2" onClick={() => navigate('/feedbacks')}>
+                        <h3>Geri Bildirim</h3>
                     </div>
-                    <div className="box3">
-<<<<<<< HEAD
-                        <h3 onClick={() => navigate('/planlayıcı')}>Planlayıcı</h3>
-=======
-                        <h3 onClick={() => navigate('/planlayıcı')}>Planlayıcı </h3>
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
+                    <div className="box3" onClick={() => navigate('/planlayıcı')}>
+                        <h3> Kişisel Planlayıcı</h3>
                     </div>
-                    <div className="box4">
-                        <h3 onClick={() => navigate('/duyuru')}>Duyurular</h3>
+                    <div className="box4" onClick={() => navigate('/duyuru')}>
+                        <h3>Duyurular</h3>
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <div className="projeler" style={{ marginTop: '40px' }}>
                     <h3 className="pro">Planlayıcı Görevleri</h3>
-                    Kullanıcı tarafından
-=======
-                <div className="projeler">
-                    <h3 className="pro">Duyurular</h3>
-                    Kullanıcılar tarafından
->>>>>>> 6b259ab8356402dc9decd185d87fef440d829ad7
                     <div className="list">
                         <table className="tbl">
                             <thead>
@@ -86,7 +72,7 @@ function DashboardPages() {
                             </thead>
                             <tbody>
                                 {plans.length > 0 ? (
-                                    plans.map(plan => (
+                                    plans.map((plan) => (
                                         <tr key={plan.id}>
                                             <td>{plan.title}</td>
                                             <td>{plan.date}</td>
@@ -95,7 +81,7 @@ function DashboardPages() {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="4">Henüz görev eklenmedi.</td>
+                                        <td colSpan="3">Henüz görev eklenmedi.</td>
                                     </tr>
                                 )}
                             </tbody>

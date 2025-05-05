@@ -71,7 +71,7 @@ function AddProje() {
                         <input type="date" name="enddate" required />
                     </div>
 
-                    <button type="submit">Ekle</button>
+                    <button className='buton' type="submit">Ekle</button>
                 </form>
             </div>
         </div>

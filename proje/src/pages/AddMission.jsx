@@ -182,7 +182,7 @@ function AddMission() {
                     </div>
 
                     {/* Submit Button */}
-                    <button type="submit">Ekle</button>
+                    <button className='buton' type="submit">Ekle</button>
                 </form>
             </div>
         </div>
