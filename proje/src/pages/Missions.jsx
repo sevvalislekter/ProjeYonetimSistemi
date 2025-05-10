@@ -64,7 +64,6 @@ function AllMissions() {
                     <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
                         <thead>
                             <tr>
-                                <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Kullanıcı Adı</th>
                                 <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Görev Açıklaması</th>
                                 <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Başlangıç Tarihi</th>
                                 <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Bitiş Tarihi</th>
@@ -73,7 +72,6 @@ function AllMissions() {
                         <tbody>
                             {missions.map((mission, index) => (
                                 <tr key={index}>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.username || 'Bilgi Yok'}</td>
                                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.task_description || 'Bilgi Yok'}</td>
                                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.startdate || 'Bilgi Yok'}</td>
                                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{mission.enddate || 'Bilgi Yok'}</td>

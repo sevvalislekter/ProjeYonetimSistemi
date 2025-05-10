@@ -30,9 +30,7 @@ function Projects() {
         fetchProjects();
     }, []);
 
-    const handleViewProject = (projectId) => {
-        navigate(`/project-detail/${projectId}`);
-    };
+
 
     const handleDeleteProject = async (projectId) => {
         if (window.confirm(`Bu projeyi silmek istediğinize emin misiniz (ID: ${projectId})?`)) {
@@ -108,7 +106,6 @@ function Projects() {
                                         <td>{project.startdate}</td>
                                         <td>{project.enddate}</td>
                                         <td>
-                                            <button onClick={() => handleViewProject(project.id)}>Detay</button>
                                             <button onClick={() => handleDeleteProject(project.id)}>Sil</button>
                                         </td>
                                     </tr>

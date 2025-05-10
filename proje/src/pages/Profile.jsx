@@ -124,7 +124,7 @@ function Profile() {
                         />
                     </div>
 
-                    <button type="submit">Profili Güncelle</button>
+                    <button className='buton' type="submit">Profili Güncelle</button>
                 </form>
             </div>
         </div>

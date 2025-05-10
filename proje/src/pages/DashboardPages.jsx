@@ -3,11 +3,7 @@ import '../css/Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 
 function DashboardPages() {
-    const [projects, setProjects] = useState([
-        { id: 1, name: 'Proje 1', desc: 'Açıklama1' },
-        { id: 2, name: 'Proje 2', desc: 'Açıklama2' },
-        { id: 3, name: 'Proje 3', desc: 'Açıklama3' },
-    ]);
+
     const [plans, setPlans] = useState([]);
     const navigate = useNavigate();
 
