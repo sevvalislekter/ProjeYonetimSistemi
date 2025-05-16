@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {
     const navigate = useNavigate();
 
-    // Kullanıcı bilgilerini tanımlıyoruz
+    // İlk yüklemede localStorage'dan veriyi al
     const [userInfo, setUserInfo] = useState({
-        username: "Şevval İşlekter",
-        email: "sevval.45@example.com",
-        phone: "+90 555 555 55 55",
-        address: "İstanbul, Türkiye",
-        profileImage: '/image/img.jpg' // Public klasöründe /image/img.jpg yoluyla resmi referans gösteriyoruz.
+        username: '',
+        email: '',
+        phone: '',
+        address: '',
+        profileImage: ''
     });
+
+    // Component yüklendiğinde localStorage'dan veri çek
+    useEffect(() => {
+        const storedUserInfo = localStorage.getItem('userInfo');
+        if (storedUserInfo) {
+            setUserInfo(JSON.parse(storedUserInfo));
+        }
+    }, []);
 
     // Profil fotoğrafını değiştirme fonksiyonu
     const handleImageChange = (e) => {
@@ -19,24 +27,26 @@ function Profile() {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setUserInfo({
+                const updatedInfo = {
                     ...userInfo,
-                    profileImage: reader.result // Yeni resmi base64 formatında güncelle
-                });
+                    profileImage: reader.result
+                };
+                setUserInfo(updatedInfo);
+                localStorage.setItem('userInfo', JSON.stringify(updatedInfo));
             };
-            reader.readAsDataURL(file); // Dosyayı base64 formatına çevir
+            reader.readAsDataURL(file);
         }
     };
 
     // Profil bilgilerini güncelleme fonksiyonu
     const handleUpdateProfile = (e) => {
         e.preventDefault();
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
         alert("Profil başarıyla güncellendi!");
     };
 
     return (
         <div className="dashboard-container">
-            {/* Sidebar */}
             <div className="sidebar" style={{ width: '220px', padding: '20px', height: '100vh' }}>
                 <h3>Menü</h3>
                 <ul>
@@ -53,14 +63,12 @@ function Profile() {
                 </ul>
             </div>
 
-            {/* Main Content */}
             <div className="main-content">
                 <h2>Profilim</h2>
 
-                {/* Profil fotoğrafı */}
                 <div className="profile-image">
                     <img
-                        src={userInfo.profileImage}
+                        src={userInfo.profileImage || 'https://via.placeholder.com/150'}
                         alt="Profil"
                         style={{ width: '150px', height: '150px', borderRadius: '50%' }}
                     />
@@ -71,14 +79,11 @@ function Profile() {
                         id="profile-image-input"
                         style={{ display: 'none' }}
                     />
-                    <button
-                        onClick={() => document.getElementById('profile-image-input').click()}
-                    >
+                    <button onClick={() => document.getElementById('profile-image-input').click()}>
                         Resmi Değiştir
                     </button>
                 </div>
 
-                {/* Profil bilgilerini güncelleme formu */}
                 <form onSubmit={handleUpdateProfile}>
                     <div className="form-group">
                         <label htmlFor="username">Kullanıcı Adı:</label>

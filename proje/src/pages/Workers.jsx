@@ -78,7 +78,7 @@ function Workers() {
 
             {/* Main Content */}
             <div className="main-content">
-                <h3>Çalışanlar</h3>
+                <h3 style={{ color: 'black' }}>Çalışanlar</h3>
                 <p>Mevcut çalışanlar listesi</p>
                 <div className="list">
                     <table className="tbl">
