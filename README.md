@@ -42,11 +42,11 @@ Bu proje, basit bir proje yönetim uygulamasıdır. Kullanıcıların projeleri,
 - ![Göreve Ekle](ekranlar/gorevekle.png)
 
 ### Çalışanlar
-- ![Çalışan Listesi](ekranlar/calisan.png)
-- ![Çalışan Ekle](ekranlar/calisanekle.png)
+- ![Çalışan Listesi](ekranlar/calısan.png)
+- ![Çalışan Ekle](ekranlar/calısanekle.png)
 
 ### Kullanıcılar
-- ![Kullanıcı Listesi](ekranlar/kullanicilist.png)
+- ![Kullanıcı Listesi](ekranlar/kullanıcılist.png)
 
 ### Diğer Sayfalar
 - ![Duyuru](ekranlar/duyuru.png)
